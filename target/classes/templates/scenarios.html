@@ -2,31 +2,98 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Сценарии</title>
+    <title>Сценарии управления</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f9f9f9;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<h1>Сценарии</h1>
+
+<h1>Сценарии управления умным домом</h1>
+
+<nav>
+    <a href="/">🏠 Главная</a>
+    <a href="/devices">🔌 Устройства</a>
+</nav>
+
 <table>
+    <thead>
     <tr>
-        <th>Имя сценария</th>
-        <th>Действия</th>
-        <th>Управление</th>
+        <th>Название сценария</th>
+        <th>Что будет выполнено</th>
+        <th>Действие</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="scenario : ${scenarios}">
-        <td th:text="${scenario.name}">Scenario name</td>
+        <td th:text="${scenario.name}">Название</td>
         <td>
             <ul>
-                <li th:each="d : ${scenario.actions}" th:text="${d.name}">Device</li>
+                <li th:each="action : ${scenario.actions}" th:text="${action.description}">Описание действия</li>
             </ul>
         </td>
         <td>
             <form th:action="@{/scenarios/run}" method="post">
-                <input type="hidden" th:name="name" th:value="${scenario.name}" />
-                <button type="submit">Выполнить</button>
+                <input type="hidden" name="name" th:value="${scenario.name}" />
+                <button type="submit">▶ Выполнить</button>
             </form>
         </td>
     </tr>
+    </tbody>
 </table>
-<a href="/">Назад к устройствам</a>
+
 </body>
 </html>

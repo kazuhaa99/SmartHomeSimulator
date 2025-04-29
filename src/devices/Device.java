@@ -1,31 +1,43 @@
 package devices;
 
-import java.io.Serializable;
-
-public abstract class Device implements Serializable {
+public abstract class Device {
     protected String id;
     protected String name;
-    protected boolean isOn;
+    protected boolean on;
 
     public Device(String id, String name) {
         this.id = id;
         this.name = name;
-        this.isOn = false;
+        this.on = false;
     }
 
-    public abstract void turnOn();
-    public abstract void turnOff();
-    public abstract String getStatus(); // ← Добавить сюда
-
-    public boolean isOn() {
-        return isOn;
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getId() {
-        return id;
+    public boolean isOn() {
+        return on;
+    }
+
+    public abstract void turnOn();
+    public abstract void turnOff();
+    public abstract void performFunction();
+
+    public String getDeviceType() {
+        return this.getClass().getSimpleName();
+    }
+
+    public String getTypeIcon() {
+        return switch (getDeviceType()) {
+            case "Light" -> "💡";
+            case "Camera" -> "📷";
+            case "HeatedFloor" -> "🔥";
+            case "Thermostat" -> "🌡️";
+            default -> "🔧";
+        };
     }
 }

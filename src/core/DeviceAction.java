@@ -3,25 +3,23 @@ package core;
 import devices.Device;
 
 public class DeviceAction implements Action {
-    private Device device;
-    private boolean turnOn;
+    private final Device device;
 
-    public DeviceAction(Device device, boolean turnOn) {
+    public DeviceAction(Device device) {
         this.device = device;
-        this.turnOn = turnOn;
     }
 
     @Override
     public void execute() {
-        if (turnOn) {
-            device.turnOn();
-        } else {
-            device.turnOff();
-        }
+        device.turnOn(); // Здесь можно добавить больше логики, если нужно
     }
 
     @Override
-    public String toString() {
-        return (turnOn ? "Turn ON " : "Turn OFF ") + device.getName();
+    public String getDescription() {
+        return "Включить " + device.getName(); // Убедись, что у Device есть метод getName()
+    }
+
+    public Device getDevice() {
+        return device;
     }
 }

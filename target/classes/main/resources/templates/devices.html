@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список устройств</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f9f9f9;
+        }
+
+        .icon {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Список устройств</h1>
+
+<nav>
+    <a href="/">🏠 Главная</a>
+    <a href="/scenarios">📋 Сценарии</a>
+</nav>
+
+<table>
+    <thead>
+    <tr>
+        <th>Иконка</th>
+        <th>Имя</th>
+        <th>Тип</th>
+        <th>Статус</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="device : ${devices}">
+        <td class="icon" th:text="${device.typeIcon}">🔧</td>
+        <td th:text="${device.name}">Имя</td>
+        <td th:text="${device.deviceType}">Тип</td>
+        <td th:text="${device.on ? 'Включен' : 'Выключен'}">Статус</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

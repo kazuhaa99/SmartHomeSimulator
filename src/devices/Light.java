@@ -1,36 +1,37 @@
 package devices;
 
-public class Light extends Device implements Switchable {
-    private int brightness; // от 0 до 100
+public class Light extends Device implements Adjustable {
+    private int brightness;
 
-    public Light(String id, String name) {
+    public Light(String id, String name, String location, String type) {
         super(id, name);
-        this.brightness = 100;
+        this.brightness = 50;
     }
 
     @Override
     public void turnOn() {
-        isOn = true;
-        System.out.println(name + " light turned ON.");
+        on = true;
+        System.out.println("Свет включён: " + name);
     }
 
     @Override
     public void turnOff() {
-        isOn = false;
-        System.out.println(name + " light turned OFF.");
-    }
-
-    public void setBrightness(int value) {
-        brightness = Math.max(0, Math.min(100, value));
-        System.out.println("Brightness of " + name + " set to " + brightness + "%");
-    }
-
-    public int getBrightness() {
-        return brightness;
+        on = false;
+        System.out.println("Свет выключен: " + name);
     }
 
     @Override
-    public String getStatus() {
-        return "Light " + name + " is " + (isOn ? "ON" : "OFF") + ", Brightness: " + brightness + "%";
+    public void performFunction() {
+        System.out.println("Настройка яркости света: " + brightness);
+    }
+
+    @Override
+    public void setLevel(int level) {
+        this.brightness = level;
+    }
+
+    @Override
+    public int getValue() {
+        return brightness;
     }
 }

@@ -2,29 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Smart Home Simulator</title>
+    <title>Умный дом</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-<h1>Список устройств</h1>
+
+<h1>Добро пожаловать в симулятор умного дома</h1>
+
 <nav>
-    <a href="/scenarios">Сценарии</a>
+    <a href="/devices">🔌 Устройства</a>
+    <a href="/scenarios">📋 Сценарии</a>
 </nav>
-<table>
-    <tr>
-        <th>Имя</th>
-        <th>Состояние</th>
-        <th>Действие</th>
-    </tr>
-    <tr th:each="device : ${devices}">
-        <td th:text="${device.name}">Device Name</td>
-        <td th:text="${device.on ? 'Включено' : 'Выключено'}">Status</td>
-        <td>
-            <form th:action="@{/toggle}" method="post">
-                <input type="hidden" th:name="id" th:value="${device.id}" />
-                <button type="submit" th:text="${device.on ? 'Выключить' : 'Включить'}">Toggle</button>
-            </form>
-        </td>
-    </tr>
-</table>
+
+<p>Выберите раздел, чтобы начать управление устройствами или выполнять сценарии.</p>
+
 </body>
 </html>

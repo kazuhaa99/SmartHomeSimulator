@@ -1,10 +1,11 @@
 package com.example.project2.gui;
 
 import com.example.project2.services.DeviceService;
+import devices.Device;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class DeviceController {
@@ -12,11 +13,15 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
 
-    @PostMapping("/device/toggle")
-    public String toggleDevice(@RequestParam String deviceId) {
-        // бизнес-логика переключения устройства
-        deviceService.toggleDevice(deviceId);
-        System.out.println("DeviceController toggled device: " + deviceId);
+    @GetMapping("/devices")
+    public String showDevices(Model model) {
+        model.addAttribute("devices", deviceService.getAllDevices());
+        return "devices";
+    }
+
+    @PostMapping("/device/update")
+    public String updateDevice(@RequestParam String deviceId, @RequestParam int value) {
+        deviceService.updateDeviceValue(deviceId, value);
         return "redirect:/devices";
     }
 }

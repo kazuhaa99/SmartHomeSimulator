@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/scenarios")
 public class ScenarioController {
 
+
     @Autowired
     private ScenarioService scenarioService;
 
@@ -23,6 +24,38 @@ public class ScenarioController {
     @PostMapping("/run")
     public String runScenario(@RequestParam String name) {
         scenarioService.runScenario(name);
-        return "redirect:/";
+        return "redirect:/scenarios";
+    }
+
+    @PostMapping("/delete")
+    public String deleteScenario(@RequestParam String name) {
+        scenarioService.deleteScenario(name);
+        return "redirect:/scenarios";
+    }
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("scenario", new Scenario(""));
+        return "create-scenario";
+    }
+
+    @PostMapping("/create")
+    public String createScenario(@ModelAttribute Scenario scenario) {
+        scenarioService.addScenario(scenario);
+        return "redirect:/scenarios";
+    }
+
+    @GetMapping("/{name}")
+    public String viewScenario(@PathVariable String name, Model model) {
+        Scenario scenario = scenarioService.findByName(name);
+        model.addAttribute("scenario", scenario);
+        model.addAttribute("devices", scenarioService.getAvailableDevices());
+        return "scenario-details";
+    }
+
+    @PostMapping("/{name}/add-device")
+    public String addDeviceToScenario(@PathVariable String name, @RequestParam String deviceId) {
+        scenarioService.addDeviceToScenario(name, deviceId);
+        return "redirect:/scenarios/" + name;
     }
 }

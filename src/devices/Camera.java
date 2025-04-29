@@ -1,41 +1,42 @@
 package devices;
 
-public class Camera extends Device implements Switchable {
-    private boolean recording;
+public class Camera extends Device {
 
-    public Camera(String id, String name) {
+    private String location;
+    private String resolution;
+
+    public Camera(String id, String name, String location, String resolution) {
         super(id, name);
-        this.recording = false;
-    }
-
-    public void startRecording() {
-        recording = true;
-    }
-
-    public void stopRecording() {
-        recording = false;
-    }
-
-    public boolean isRecording() {
-        return recording;
+        this.location = location;
+        this.resolution = resolution;
     }
 
     @Override
     public void turnOn() {
-        isOn = true;
-        System.out.println(name + " camera turned ON.");
+        on = true;
+        System.out.println("Камера " + getName() + " включена. Местоположение: " + location);
     }
 
     @Override
     public void turnOff() {
-        isOn = false;
-        stopRecording();
-        System.out.println(name + " camera turned OFF.");
+        on = false;
+        System.out.println("Камера " + getName() + " выключена.");
     }
 
     @Override
-    public String getStatus() {
-        return "Camera " + name + " is " + (isOn ? "ON" : "OFF") +
-                ", Recording: " + (recording ? "Yes" : "No");
+    public void performFunction() {
+        if (isOn()) {
+            System.out.println("Камера " + getName() + " записывает в " + resolution + " качестве.");
+        } else {
+            System.out.println("Камера " + getName() + " неактивна.");
+        }
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getResolution() {
+        return resolution;
     }
 }

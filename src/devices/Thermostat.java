@@ -1,40 +1,42 @@
 package devices;
 
-public class Thermostat extends Device implements Controllable {
+public class Thermostat extends Device {
 
-    private double temperature;
+    private String room;
+    private String type;
 
-    public Thermostat(String id, String name) {
+    public Thermostat(String id, String name, String room, String type) {
         super(id, name);
-        this.temperature = 22.0;
+        this.room = room;
+        this.type = type;
     }
 
     @Override
     public void turnOn() {
-        isOn = true;
-        System.out.println(name + " thermostat turned ON.");
+        on = true;
+        System.out.println("Термостат " + getName() + " включен в комнате " + room);
     }
 
     @Override
     public void turnOff() {
-        isOn = false;
-        System.out.println(name + " thermostat turned OFF.");
+        on = false;
+        System.out.println("Термостат " + getName() + " выключен в комнате " + room);
     }
 
     @Override
-    public Object getParameter(String key) {
-        if (key.equals("temperature")) {
-            return temperature;
+    public void performFunction() {
+        if (isOn()) {
+            System.out.println("Термостат " + getName() + " регулирует температуру в " + room);
+        } else {
+            System.out.println("Термостат " + getName() + " выключен и не функционирует.");
         }
-        return null;
     }
 
+    public String getRoom() {
+        return room;
+    }
 
-    @Override
-    public void setParameter(String key, Object value) {
-        if (key.equals("temperature") && value instanceof Double) {
-            temperature = (Double) value;
-            System.out.println("Temperature set to " + temperature + "°C");
-        }
+    public String getType() {
+        return type;
     }
 }

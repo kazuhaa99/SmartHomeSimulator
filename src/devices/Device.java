@@ -15,6 +15,7 @@ public abstract class Device implements Serializable {
 
     public abstract void turnOn();
     public abstract void turnOff();
+    public abstract String getStatus(); // ← Добавить сюда
 
     public boolean isOn() {
         return isOn;

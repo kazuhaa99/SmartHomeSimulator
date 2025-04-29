@@ -1,4 +1,7 @@
 package devices;
 
-public class Schedulable {
+import java.time.LocalTime;
+
+public interface Schedulable {
+    void schedule(LocalTime time);
 }

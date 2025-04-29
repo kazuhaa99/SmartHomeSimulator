@@ -22,6 +22,15 @@ public class Thermostat extends Device implements Controllable {
     }
 
     @Override
+    public Object getParameter(String key) {
+        if (key.equals("temperature")) {
+            return temperature;
+        }
+        return null;
+    }
+
+
+    @Override
     public void setParameter(String key, Object value) {
         if (key.equals("temperature") && value instanceof Double) {
             temperature = (Double) value;

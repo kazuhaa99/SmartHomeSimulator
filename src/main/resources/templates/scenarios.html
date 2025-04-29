@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Сценарии</title>
+</head>
+<body>
+<h1>Сценарии</h1>
+<table>
+    <tr>
+        <th>Имя сценария</th>
+        <th>Действия</th>
+        <th>Управление</th>
+    </tr>
+    <tr th:each="scenario : ${scenarios}">
+        <td th:text="${scenario.name}">Scenario name</td>
+        <td>
+            <ul>
+                <li th:each="d : ${scenario.actions}" th:text="${d.name}">Device</li>
+            </ul>
+        </td>
+        <td>
+            <form th:action="@{/scenarios/run}" method="post">
+                <input type="hidden" th:name="name" th:value="${scenario.name}" />
+                <button type="submit">Выполнить</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<a href="/">Назад к устройствам</a>
+</body>
+</html>

@@ -1,30 +1,33 @@
 package core;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import devices.Device;
 
 public class Scenario implements Serializable {
     private String name;
-    private List<Runnable> actions;
+    private List<Device> actions = new ArrayList<>();
 
     public Scenario(String name) {
         this.name = name;
-        this.actions = new ArrayList<>();
+    }
+
+    public void addAction(Device device) {
+        actions.add(device);
+    }
+
+    public void run() {
+        for (Device device : actions) {
+            device.turnOn();
+        }
     }
 
     public String getName() {
         return name;
     }
 
-    public void addAction(Runnable action) {
-        actions.add(action);
-    }
-
-    public void execute() {
-        System.out.println("Executing scenario: " + name);
-        for (Runnable action : actions) {
-            action.run();
-        }
+    public List<Device> getActions() {
+        return actions;
     }
 }

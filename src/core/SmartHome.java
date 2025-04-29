@@ -1,36 +1,54 @@
 package core;
 
-import java.io.Serializable;
-import java.util.*;
+import devices.Device;
 
-public class SmartHome implements Serializable {
-    private List<Room> rooms;
-    private Map<String, User> users;
+import java.util.ArrayList;
+import java.util.List;
 
-    public SmartHome() {
-        this.rooms = new ArrayList<>();
-        this.users = new HashMap<>();
+public class SmartHome {
+    private static SmartHome instance;
+
+    private List<Device> devices;
+
+    private SmartHome() {
+        devices = new ArrayList<>();
+        // можно добавить начальные устройства
     }
 
-    public void addRoom(Room room) {
-        rooms.add(room);
-    }
-
-    public void addUser(User user) {
-        users.put(user.getUsername(), user);
-    }
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public Map<String, User> getUsers() {
-        return users;
-    }
-
-    public void showAll() {
-        for (Room room : rooms) {
-            room.showDevices();
+    public static SmartHome getInstance() {
+        if (instance == null) {
+            instance = new SmartHome();
         }
+        return instance;
+    }
+
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public Device getDeviceById(String id) {
+        for (Device device : devices) {
+            if (device.getId().equals(id)) {
+                return device;
+            }
+        }
+        return null;
+    }
+
+    public void toggleDevice(String id) {
+        for (Device device : devices) {
+            if (device.getId().equals(id)) {
+                if (device.isOn()) {
+                    device.turnOff();
+                } else {
+                    device.turnOn();
+                }
+                break;
+            }
+        }
+    }
+
+    public void addDevice(Device device) {
+        devices.add(device);
     }
 }

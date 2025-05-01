@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .logout-button {
+            background-color: #ff4d4d;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: #e60000;
+        }
+
+        .container {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .plan {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+        }
+
+        .room {
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            margin: 10px;
+            background-color: #d4eafd;
+            line-height: 100px;
+            vertical-align: middle;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        .room:hover {
+            background-color: #a9d3f2;
+        }
+
+        .automation-section {
+            margin-top: 30px;
+        }
+
+        .automation-button {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .automation-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Добро пожаловать в Умный Дом</h1>
+    <a href="/logout" class="logout-button">Выйти</a>
+</div>
+
+<div class="container">
+    <div class="plan">
+        <div class="room" onclick="location.href='/room?name=Кухня'">Кухня</div>
+        <div class="room" onclick="location.href='/room?name=Зал'">Зал</div>
+        <div class="room" onclick="location.href='/room?name=Коридор'">Коридор</div>
+        <div class="room" onclick="location.href='/room?name=Спальня'">Спальня</div>
+    </div>
+
+    <div class="automation-section">
+        <a href="/automation" class="automation-button">Автоматизация</a>
+    </div>
+</div>
+
+</body>
+</html>

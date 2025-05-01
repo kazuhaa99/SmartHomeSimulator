@@ -2,19 +2,17 @@ package devices;
 
 public class Camera extends Device {
 
-    private String location;
     private String resolution;
 
-    public Camera(String id, String name, String location, String resolution) {
-        super(id, name);
-        this.location = location;
+    public Camera(String id, String name, String room, String resolution) {
+        super(id, name, room); // передаём room в родительский класс
         this.resolution = resolution;
     }
 
     @Override
     public void turnOn() {
         on = true;
-        System.out.println("Камера " + getName() + " включена. Местоположение: " + location);
+        System.out.println("Камера " + getName() + " включена. Местоположение: " + getRoom());
     }
 
     @Override
@@ -30,10 +28,6 @@ public class Camera extends Device {
         } else {
             System.out.println("Камера " + getName() + " неактивна.");
         }
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     public String getResolution() {

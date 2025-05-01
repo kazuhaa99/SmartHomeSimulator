@@ -1,0 +1,14 @@
+{
+  "dsa@Karaganda_Лободы_24_5" : {
+    "Зал" : [ ]
+  },
+  "izone@Karaganda_Абая_49_8" : {
+    "Зал" : [ {
+      "roomName" : "Зал",
+      "deviceType" : "Camera",
+      "deviceName" : "Камера 1",
+      "turnOn" : true,
+      "time" : "12:12"
+    } ]
+  }
+}

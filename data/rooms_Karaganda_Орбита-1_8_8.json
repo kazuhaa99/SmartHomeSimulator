@@ -1,0 +1,20 @@
+{
+  "Кухня" : {
+    "name" : "Кухня",
+    "temperature" : 23.2,
+    "brightness" : 100,
+    "humidity" : 47.3
+  },
+  "Коридор" : {
+    "name" : "Коридор",
+    "temperature" : 21.0,
+    "brightness" : 60,
+    "humidity" : 40.0
+  },
+  "Зал" : {
+    "name" : "Зал",
+    "temperature" : 23.5,
+    "brightness" : 80,
+    "humidity" : 45.0
+  }
+}

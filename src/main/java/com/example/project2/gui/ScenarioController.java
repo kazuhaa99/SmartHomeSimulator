@@ -1,7 +1,7 @@
 package com.example.project2.gui;
 
 import com.example.project2.services.ScenarioService;
-import core.Scenario;
+import com.example.project2.core.Scenario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

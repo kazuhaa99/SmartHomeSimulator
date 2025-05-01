@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Автоматизация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        form, .tasks {
+            background-color: white;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        select, input[type="time"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .back-button {
+            background-color: #007bff;
+        }
+
+        .back-button:hover {
+            background-color: #0069d9;
+        }
+
+        .tasks ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tasks li {
+            margin-bottom: 10px;
+        }
+
+        .delete-form {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .delete-form button {
+            background-color: #dc3545;
+        }
+
+        .delete-form button:hover {
+            background-color: #c82333;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Кнопка "Назад" -->
+    <form action="/home">
+        <button type="submit" class="back-button">Вернуться на главную</button>
+    </form>
+
+    <!-- Выбор комнаты -->
+    <form method="get" action="/automation">
+        <label for="room">Выберите комнату:</label>
+        <select id="room" name="room">
+            <option th:each="room : ${rooms}"
+                    th:value="${room}"
+                    th:text="${room}"
+                    th:selected="${room == selectedRoom}"></option>
+        </select>
+        <button type="submit">Показать сценарии</button>
+    </form>
+
+    <!-- Добавление сценария -->
+    <form th:action="@{/automation/add}" method="post" th:if="${selectedRoom != null}">
+        <input type="hidden" name="room" th:value="${selectedRoom}" />
+
+        <label for="device">Устройство:</label>
+        <select id="device" name="deviceId">
+            <option th:each="device : ${devices}"
+                    th:value="${device.id}"
+                    th:text="${device.name}"></option>
+        </select>
+
+        <label for="turnOn">Действие:</label>
+        <select id="turnOn" name="turnOn">
+            <option th:value="true">Включить</option>
+            <option th:value="false">Выключить</option>
+        </select>
+
+        <label for="time">Время:</label>
+        <input type="time" id="time" name="time" required>
+
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <!-- Отображение сценариев -->
+    <div class="tasks" th:if="${tasks != null}">
+        <h3>Запланированные сценарии:</h3>
+        <ul>
+            <li th:each="task, iterStat : ${tasks}">
+                [[${task.deviceName}]] в [[${task.roomName}]] →
+                [[${task.turnOn ? 'ВКЛ' : 'ВЫКЛ'}]] в [[${task.time}]]
+
+                <!-- Кнопка Удалить -->
+                <form th:action="@{/automation/delete}" method="post" class="delete-form">
+                    <input type="hidden" name="roomName" th:value="${task.roomName}" />
+                    <input type="hidden" name="deviceType" th:value="${task.deviceType}" />
+                    <input type="hidden" name="taskId" th:value="${iterStat.index}" />
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+
+            </li>
+        </ul>
+    </div>
+
+</div>
+</body>
+</html>

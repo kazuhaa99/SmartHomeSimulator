@@ -1,0 +1,26 @@
+{
+  "Спальня" : {
+    "name" : "Спальня",
+    "temperature" : 22.6,
+    "brightness" : 26,
+    "humidity" : 50.1
+  },
+  "Кухня" : {
+    "name" : "Кухня",
+    "temperature" : 22.6,
+    "brightness" : 37,
+    "humidity" : 50.1
+  },
+  "Зал" : {
+    "name" : "Зал",
+    "temperature" : 26.2,
+    "brightness" : 80,
+    "humidity" : 45.0
+  },
+  "Коридор" : {
+    "name" : "Коридор",
+    "temperature" : 123.0,
+    "brightness" : 40,
+    "humidity" : 50.1
+  }
+}

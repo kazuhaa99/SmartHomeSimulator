@@ -2,7 +2,7 @@ package com.example.project2.services;
 
 import core.Action;
 import core.DeviceAction;
-import core.Scenario;
+import com.example.project2.core.Scenario;
 import devices.Device;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +48,7 @@ public class ScenarioService {
 
     public void addDeviceToScenario(String scenarioName, String deviceId) {
         Scenario scenario = findByName(scenarioName);
-        Device device = deviceService.findById(deviceId);
+        Device device = deviceService.getDeviceById(deviceId);
         if (scenario != null && device != null) {
             scenario.addAction(new DeviceAction(device)); // Обертываем в Action
         }

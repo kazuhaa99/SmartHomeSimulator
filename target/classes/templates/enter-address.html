@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Введите адрес дома</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        form {
+            width: 320px;
+            padding: 25px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(to right, #45a049, #3e8e41);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Введите адрес дома</h2>
+    <form th:action="@{/enter-address}" method="post">
+        <label>Город:</label>
+        <input type="text" name="city" required><br>
+
+        <label>Улица:</label>
+        <input type="text" name="street" required><br>
+
+        <label>Дом:</label>
+        <input type="text" name="building" required><br>
+
+        <label>Квартира:</label>
+        <input type="text" name="apartment" required><br>
+
+        <button type="submit">Продолжить</button>
+    </form>
+</div>
+
+</body>
+</html>

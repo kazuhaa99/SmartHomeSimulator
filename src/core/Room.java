@@ -1,35 +1,67 @@
 package core;
 
-import devices.Device;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Room implements Serializable {
     private String name;
-    private List<Device> devices;
+    private double temperature;
+    private int brightness;
+    private double humidity;
 
-    public Room(String name) {
+    @JsonCreator
+    public Room(
+            @JsonProperty("name") String name,
+            @JsonProperty("temperature") double temperature,
+            @JsonProperty("brightness") int brightness,
+            @JsonProperty("humidity") double humidity) {
         this.name = name;
-        this.devices = new ArrayList<>();
+        this.temperature = temperature;
+        this.brightness = brightness;
+        this.humidity = humidity;
     }
+
 
     public String getName() {
         return name;
     }
 
-    public void addDevice(Device device) {
-        devices.add(device);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<Device> getDevices() {
-        return devices;
+    public double getTemperature() {
+        return temperature;
     }
 
-    public void showDevices() {
-        System.out.println("Devices in room " + name + ":");
-        for (Device device : devices) {
-            System.out.println("- " + device.getName() + " (on: " + device.isOn() + ")");
-        }
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+    public int getBrightness() {
+        return brightness;
+    }
+
+    public void setBrightness(int brightness) {
+        this.brightness = brightness;
+    }
+
+    public double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "name='" + name + '\'' +
+                ", temperature=" + temperature +
+                ", brightness=" + brightness +
+                ", humidity=" + humidity +
+                '}';
     }
 }

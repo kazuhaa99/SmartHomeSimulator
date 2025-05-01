@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Комната: ' + ${room.name}">Комната</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .back-button {
+            background-color: #007BFF;
+            margin-top: 10px;
+        }
+
+        .back-button:hover {
+            background-color: #0062cc;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 th:text="'Комната: ' + ${room.name}">Комната</h1>
+
+    <form th:action="@{/room/update}" method="post">
+        <input type="hidden" name="name" th:value="${room.name}" />
+        <label>Температура:</label>
+        <input type="number" step="0.1" name="temperature" th:value="${room.temperature}" />
+
+        <label>Яркость света:</label>
+        <input type="number" name="brightness" th:value="${room.brightness}" />
+
+        <label>Влажность:</label>
+        <input type="number" step="0.1" name="humidity" th:value="${room.humidity}" />
+
+        <button type="submit">Сохранить</button>
+    </form>
+
+
+    <a th:href="@{/home}">
+        <button class="back-button">Вернуться на главную</button>
+    </a>
+</div>
+</body>
+</html>

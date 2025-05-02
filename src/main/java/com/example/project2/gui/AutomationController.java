@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import com.example.project2.automation.AutomationScheduler;
 
 @Controller
 public class AutomationController {
@@ -31,18 +32,24 @@ public class AutomationController {
         String username = (String) session.getAttribute("username");
         String address = (String) session.getAttribute("addressKey");
 
-
         if (username == null || address == null) {
             return "redirect:/login";
         }
 
-        model.addAttribute("rooms", List.of("Зал", "Кухня", "Коридор","Спальня"));
+        // ⬇️ Запускаем AutomationScheduler один раз при заходе
+        if (session.getAttribute("schedulerStarted") == null) {
+            AutomationScheduler scheduler = new AutomationScheduler(automationService, deviceService, username, address);
+            scheduler.start();
+            session.setAttribute("schedulerStarted", true);
+            System.out.println("🚀 Запущен поток автоматизации задач");
+        }
+
+        model.addAttribute("rooms", List.of("Зал", "Кухня", "Коридор", "Спальня"));
         model.addAttribute("selectedRoom", room);
 
         if (room != null) {
             List<Device> devices = deviceService.getDevicesByRoom(room);
             List<AutomationTask> tasks = automationService.getTasksForRoom(username, address, room);
-
             model.addAttribute("devices", devices);
             model.addAttribute("tasks", tasks);
         }
@@ -77,6 +84,13 @@ public class AutomationController {
         return "redirect:/automation?room=" + URLEncoder.encode(room, StandardCharsets.UTF_8); // <--- исправлено
     }
 
+    @GetMapping("/automation/notifications")
+    @ResponseBody
+    public List<String> getNotifications(HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        String address = (String) session.getAttribute("addressKey");
+        return automationService.getAndClearNotifications(username, address);
+    }
 
     @PostMapping("/automation/delete")
     public String deleteAutomationTask(@RequestParam String roomName,

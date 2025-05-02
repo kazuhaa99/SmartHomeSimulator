@@ -10,5 +10,15 @@
       "turnOn" : true,
       "time" : "12:12"
     } ]
+  },
+  "izone1@Karaganda_Орбита-1_8_45" : {
+    "Зал" : [ ],
+    "Коридор" : [ {
+      "roomName" : "Коридор",
+      "deviceType" : "HeatedFloor",
+      "deviceName" : "Пол в коридоре",
+      "turnOn" : true,
+      "time" : "18:36"
+    } ]
   }
 }

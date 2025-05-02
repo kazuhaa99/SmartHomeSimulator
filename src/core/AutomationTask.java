@@ -61,4 +61,9 @@ public class AutomationTask {
     public void setTime(LocalTime time) {
         this.time = time;
     }
+    @Override
+    public String toString() {
+        return deviceName + " в " + roomName + " → " + (turnOn ? "ВКЛ" : "ВЫКЛ") + " в " + time;
+    }
+
 }

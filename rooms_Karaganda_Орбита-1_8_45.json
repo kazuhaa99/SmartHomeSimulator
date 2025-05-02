@@ -8,7 +8,7 @@
   "Коридор" : {
     "name" : "Коридор",
     "temperature" : 21.0,
-    "brightness" : 60,
+    "brightness" : 99,
     "humidity" : 40.0
   },
   "Спальня" : {
@@ -20,7 +20,7 @@
   "Зал" : {
     "name" : "Зал",
     "temperature" : 23.5,
-    "brightness" : 80,
+    "brightness" : 0,
     "humidity" : 45.0
   }
 }

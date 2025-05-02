@@ -82,7 +82,13 @@
             background-color: #c82333;
         }
 
+
     </style>
+
+    <!-- Подключаем toastr.js и jQuery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -142,11 +148,24 @@
                     <input type="hidden" name="taskId" th:value="${iterStat.index}" />
                     <button type="submit" class="btn btn-danger">Удалить</button>
                 </form>
-
             </li>
         </ul>
     </div>
 
 </div>
+
+<!-- Скрипт для получения уведомлений -->
+<script>
+    setInterval(function () {
+        $.get("/automation/notifications", function (data) {
+            if (data && data.length > 0) {
+                data.forEach(msg => {
+                    toastr.success(msg);
+                });
+            }
+        });
+    }, 5000);
+</script>
+
 </body>
 </html>

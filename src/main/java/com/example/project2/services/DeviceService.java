@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import core.AutomationTask;
 
 @Service
 public class DeviceService {
@@ -57,4 +58,43 @@ public class DeviceService {
                 .filter(device -> device.getRoom().equalsIgnoreCase(room))
                 .collect(Collectors.toList());
     }
+    public void executeAutomationTask(AutomationTask task) {
+        for (Device device : getAllDevices()) {
+            if (device.getName().equals(task.getDeviceName()) &&
+                    device.getRoom().equalsIgnoreCase(task.getRoomName())) {
+
+                if (device instanceof Switchable) {
+                    Switchable switchable = (Switchable) device;
+
+                    if (task.isTurnOn()) {
+                        switchable.turnOn();
+                    } else {
+                        switchable.turnOff();
+                    }
+
+                    System.out.println("Автоматизация: " + device.getName() + " в " + task.getRoomName()
+                            + " → " + (task.isTurnOn() ? "ВКЛ" : "ВЫКЛ"));
+                }
+
+                return; // задача выполнена
+            }
+        }
+
+        System.out.println("Устройство не найдено для задачи: " + task.getDeviceName());
+    }
+
+    public void setDeviceState(String deviceId, boolean state) {
+        Device device = getDeviceById(deviceId);
+        if (device instanceof Switchable switchable) {
+            if (state) {
+                switchable.turnOn();
+            } else {
+                switchable.turnOff();
+            }
+            System.out.println("Устройство " + device.getName() + " установлено в состояние: " + (state ? "включено" : "выключено"));
+        } else {
+            System.out.println("❌ Устройство не поддерживает включение/выключение: " + deviceId);
+        }
+    }
+
 }

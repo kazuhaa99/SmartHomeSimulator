@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
+import java.util.concurrent.ConcurrentHashMap;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,20 @@ public class AutomationService {
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
+
+    private final Map<String, List<String>> notifications = new ConcurrentHashMap<>();
+
+    public void addNotification(String username, String address, String message) {
+        String key = username + "@" + address;
+        notifications.computeIfAbsent(key, k -> Collections.synchronizedList(new ArrayList<>())).add(message);
+    }
+
+    public List<String> getAndClearNotifications(String username, String address) {
+        String key = username + "@" + address;
+        List<String> result = notifications.remove(key);
+        return result != null ? result : new ArrayList<>();
+    }
+
 
     @PostConstruct
     public void loadTasks() {
@@ -71,7 +86,7 @@ public class AutomationService {
         }
     }
 
-    private void saveTasks() {
+    public void saveTasks() {
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(storageFile, userTasks);
         } catch (IOException e) {
